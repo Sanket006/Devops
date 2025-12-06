@@ -1,3 +1,12 @@
 variable "ami" {
-  default = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI (HVM), SSD Volume Type
+  default = "ami-0c55b159cbfafe1f0"
 }
+
+variable "instance_type" {
+  default = "t2.micro"
+}
+
+variable "env" {
+  default = "dev"
+}
+

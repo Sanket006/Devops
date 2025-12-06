@@ -4,10 +4,11 @@ provider "aws" {
 
 resource "aws_instance" "my_ec2" {
   ami           = var.ami
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
 
   tags = {
-    Name = "MyFirstEC2Instance"
+    Name = "MyEC2Instance"
+    env = var.env
   }
   
 }
