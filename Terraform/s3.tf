@@ -6,7 +6,6 @@ resource "aws_s3_bucket" "my_bucket" {
     Name        = "MyBucket"
     env       = "dev"
   } 
-  
 }
 
 # Enable versioning for the S3 bucket
@@ -40,10 +39,23 @@ resource "aws_s3_bucket_public_access_block" "public_access_block" {
 }
 
 # Upload a file to the S3 bucket
-resource "aws_s3_object" "upload_file" {
-  bucket = aws_s3_bucket.my_bucket.id
-  key    = "example.txt"
-  source = "path/to/local/example.txt"
-  etag   = filemd5("path/to/local/example.txt")
-  
+resource "aws_s3_object" "website_file" {
+  bucket = aws_s3_bucket.my_bucket.bucket
+  key    = "my-website/index.html"     # S3 path
+  source = "C:/Users/Lenovo/Downloads/my-website/index.html"
+  etag   = filemd5("C:/Users/Lenovo/Downloads/my-website/index.html")
+}
+
+# Upload multiple files to the S3 bucket
+locals {
+  website_files = fileset("C:/Users/Lenovo/Downloads/my-website", "**")
+}
+
+resource "aws_s3_object" "website" {
+  for_each = { for file in local.website_files : file => file }
+
+  bucket = aws_s3_bucket.my_bucket.bucket
+  key    = each.key
+  source = "C:/Users/Lenovo/Downloads/my-website/${each.key}"
+  etag   = filemd5("C:/Users/Lenovo/Downloads/my-website/${each.key}")
 }

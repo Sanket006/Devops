@@ -1,3 +1,8 @@
+#  Auto Scaling Group with Launch Template, Scaling Policy, and CloudWatch Alarms
+provider "aws" {
+  region = "ap-south-1"
+}
+
 # Launch Template for Auto Scaling Group
 resource "aws_launch_template" "asg_lt" {
   name_prefix   = "asg-launch-template"
@@ -12,7 +17,7 @@ resource "aws_launch_template" "asg_lt" {
               apt update -y
               apt install -y nginx
               systemctl start nginx 
-              echo "<h1>Welcome to Auto Scaling Group!</h1>" > /var/www/html/index.html
+              echo "<h1>Welcome to Auto Scaling Group $(hostname)</h1>" > /var/www/html/index.html
               systemctl enable nginx
     EOF
     )

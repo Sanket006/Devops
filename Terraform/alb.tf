@@ -1,8 +1,13 @@
+# Terraform configuration for Application Load Balancer (ALB)
+provider "aws" {
+  region = "ap-south-1"
+}
+
 # Security Group for ALB
 resource "aws_security_group" "alb_sg" {
     name        = "alb_security_group"
     description = "Security group for ALB"
-    vpc_id      = aws_vpc.main.id
+    vpc_id      = aws_vpc.my_vpc.id
     # Inbound rules
     ingress {
         from_port   = 80
@@ -40,7 +45,7 @@ resource "aws_lb_target_group" "my_tg" {
     name     = "my-target-group"
     port     = 80
     protocol = "HTTP"
-    vpc_id   = aws_vpc.main.id
+    vpc_id   = aws_vpc.my-vpc.id
     target_type = "instance"
 
     health_check {
