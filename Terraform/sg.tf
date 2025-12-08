@@ -1,7 +1,8 @@
 provider "aws" {
-  region = "ap-south-1"
+  region = var.region
 }
 
+# Security Group Resource
 resource "aws_security_group" "my_sg" {
   name        = "my_security_group"
   description = "Security group for my EC2 instance"

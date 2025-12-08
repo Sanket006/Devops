@@ -1,5 +1,5 @@
 variable "ami" {
-  default = "ami-0c55b159cbfafe1f0"
+  default = "ami-02b8269d5e85954ef"
 }
 
 variable "instance_type" {
@@ -10,3 +10,6 @@ variable "env" {
   default = "dev"
 }
 
+variable "region" {
+  default = "ap-south-1"
+}
